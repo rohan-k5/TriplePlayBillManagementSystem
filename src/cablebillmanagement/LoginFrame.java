@@ -17,8 +17,8 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoginFrame
      */
-    String Username;
-    String Password;
+    private int ID;
+    private String Name;
     boolean isAdmin = false;
     public LoginFrame() {
         initComponents();
@@ -38,10 +38,10 @@ public class LoginFrame extends javax.swing.JFrame {
             String url;
 //            IF user login user USER table else use ADMIN table
             if(isAdmin){
-                url = "select Ad_email, Ad_pass from ADMIN where Ad_email = '"+email+"' and Ad_pass = '"+ password+"';";
+                url = "select Ad_id, Ad_name from ADMIN where Ad_email = '"+email+"' and Ad_pass = '"+ password+"';";
             }
             else{
-                url = "select U_email, U_pass from USER where U_email = '"+ email +"' and U_pass = '"+ password+"';";
+                url = "select U_id, U_name from USER where U_email = '"+ email +"' and U_pass = '"+ password+"';";
                 
             }
             
@@ -49,31 +49,38 @@ public class LoginFrame extends javax.swing.JFrame {
             Statement st = connection.createStatement();
 //            it will store the result of querry in set form.
             ResultSet set = st.executeQuery(url);
-            
+  
+//                    Storing ID and Name from 1st asnd 2nd column
+                    
+                    
             if( set.next()){
                 
                 if(isAdmin){
-//                    saving name that's in 1 column of querried table
-                   String name = set.getString(1);
                    
+                    ID =Integer.parseInt( set.getString("Ad_id"));
+                    Name = set.getString("Ad_name");
 //                   Opening admin UI page
-                   AdminMainUI newObj = new AdminMainUI();
+                   AdminMainUI adminObj = new AdminMainUI();
                    
 //                   setting user name from login user to User UI page
-                   newObj.jLabelAdminName.setText(name);
-                   newObj.setVisible(true);
+                   adminObj.adminNamejLabel.setText(Name);
+                   adminObj.adminID = ID;
+                   adminObj.adminName = Name;
+                   
+                   adminObj.setVisible(true);
                    this.dispose();
                 }
                 else{
-//                    saving name that's in 1 column of querried table                    
-                   String name = set.getString(1);
                    
 //                 opening User UI page
-                   UserMainUI newObj = new UserMainUI();
-                   
+                   UserMainUI userObj = new UserMainUI();
+                   ID =Integer.parseInt( set.getString("U_id"));
+                   Name = set.getString("U_name");
 //                   setting user name from login user to User UI page
-                   newObj.jLabelUserName.setText(name);
-                   newObj.setVisible(true);
+                   userObj.userNamejLabel.setText(Name);
+                   userObj.userID = ID;
+                   userObj.userName = Name;
+                   userObj.setVisible(true);
                    this.dispose();
                 }
             }

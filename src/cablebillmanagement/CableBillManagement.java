@@ -18,9 +18,9 @@ public class CableBillManagement {
     public static void main(String[] args) {
         // TODO code application logic here
 //        Login page frame calling
-//        new LoginFrame().setVisible(true);
+        new LoginFrame().setVisible(true);
 //          new SignupFrame().setVisible(true);
-          new AdminMainUI().setVisible(true);
+//          new AdminMainUI().setVisible(true);
 //            new UserMainUI().setVisible(true);
     }
     
