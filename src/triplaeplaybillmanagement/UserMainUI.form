@@ -46,7 +46,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/cablebillmanagement/assets/icons8_user_100px_1.png"/>
+              <Image iconType="3" name="/triplaeplaybillmanagement/assets/icons8_user_100px_1.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -114,7 +114,7 @@
                   <Font name="Goudy Old Style" size="15" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/cablebillmanagement/assets/icons8_new_letter_24px.png"/>
+                  <Image iconType="3" name="/triplaeplaybillmanagement/assets/icons8_new_letter_24px.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -174,7 +174,7 @@
                   <Font name="Goudy Old Style" size="15" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/cablebillmanagement/assets/icons8_payment_history_24px.png"/>
+                  <Image iconType="3" name="/triplaeplaybillmanagement/assets/icons8_payment_history_24px.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -234,7 +234,7 @@
                   <Font name="Goudy Old Style" size="15" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/cablebillmanagement/assets/icons8_transaction_24px.png"/>
+                  <Image iconType="3" name="/triplaeplaybillmanagement/assets/icons8_transaction_24px.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -294,7 +294,7 @@
                   <Font name="Goudy Old Style" size="15" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/cablebillmanagement/assets/icons8_complaint_24px_1.png"/>
+                  <Image iconType="3" name="/triplaeplaybillmanagement/assets/icons8_complaint_24px_1.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -354,7 +354,7 @@
                   <Font name="Goudy Old Style" size="15" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/cablebillmanagement/assets/icons8_registration_24px_3.png"/>
+                  <Image iconType="3" name="/triplaeplaybillmanagement/assets/icons8_registration_24px_3.png"/>
                 </Property>
               </Properties>
               <Constraints>

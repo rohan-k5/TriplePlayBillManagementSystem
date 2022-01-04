@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package cablebillmanagement;
+package triplaeplaybillmanagement;
 
-import static cablebillmanagement.SignupFrame.checkFieldValidity;
+import static triplaeplaybillmanagement.SignupFrame.checkFieldValidity;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.sql.Statement;
@@ -555,7 +555,7 @@ private void updateUserPassword(String password ){
         userMenujPanel.setPreferredSize(new java.awt.Dimension(200, 583));
         userMenujPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_user_100px_1.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_user_100px_1.png"))); // NOI18N
         userMenujPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 100, 90));
         userMenujPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 176, 22));
 
@@ -575,7 +575,7 @@ private void updateUserPassword(String password ){
         subscriptionPlansJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_new_letter_24px.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_new_letter_24px.png"))); // NOI18N
         subscriptionPlansJPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         subscriptionPlansTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -596,7 +596,7 @@ private void updateUserPassword(String password ){
         pendingPaymentJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_payment_history_24px.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_payment_history_24px.png"))); // NOI18N
         pendingPaymentJPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         pendingPaymentTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -617,7 +617,7 @@ private void updateUserPassword(String password ){
         billingHistoryJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_transaction_24px.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_transaction_24px.png"))); // NOI18N
         billingHistoryJPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         billingHistoryTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -638,7 +638,7 @@ private void updateUserPassword(String password ){
         userComplaintsJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_complaint_24px_1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_complaint_24px_1.png"))); // NOI18N
         userComplaintsJPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         userComplaintsTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -659,7 +659,7 @@ private void updateUserPassword(String password ){
         userChangeCredentialJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_registration_24px_3.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_registration_24px_3.png"))); // NOI18N
         userChangeCredentialJPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 30, 40));
 
         userChangeCredentialTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
