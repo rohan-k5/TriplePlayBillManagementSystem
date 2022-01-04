@@ -5,6 +5,7 @@
 package cablebillmanagement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
@@ -18,12 +19,90 @@ public class SignupFrame extends javax.swing.JFrame {
      * Creates new form SignupFrame
      */
     boolean isAdmin = false;
+    Connection connection = null;
+    
     public SignupFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
-    Connection connection = null;
+    enum CheckFlied{
+        PASSWORD,
+        PHONE,
+        EMAIL,
+        NAME,
+        ADDRESS;
+    }
+    
+    
+public static int checkFieldValidity(String text , CheckFlied field){
+    
+//    Checking for valid password
+    if( field == CheckFlied.PASSWORD){
+        // String to be scanned to find the pattern.
+      String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,19}$";
+
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      
+        if(r.matcher(text).matches())
+            return 1;
+    }
+//    checking for valid phone numbers
+    if(field == CheckFlied.PHONE){
+       String pattern = "^[6-9]\\d{9}$";
+
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      
+      if(r.matcher(text).matches()){
+          return 1;
+      }
+    }
+//    checking for name 
+    if( field == CheckFlied.NAME){
+        
+      String pattern = "^[a-zA-Z]{4,}$";
+
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      
+      if(r.matcher(text).matches()){
+          return 1;
+      }
+        
+    }
+    
+//    checking for valid Email
+    if( field == CheckFlied.EMAIL){
+      
+      String email = text;
+      String pattern = "^[A-Za-z0-9]+[A-Za-z0-9\\.]{2,}@[A-Za-z0-9\\.-]{2,}\\.[A-Za-z]{2,3}";
+
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      
+      if(r.matcher(email).matches()){
+          return 1;
+      }
+    }
+    
+//    Checking for valid Address
+    if(field == CheckFlied.ADDRESS){
+      String pattern = "(?=.*[A-Za-z]{3,})[A-Za-z0-9\\.-:\\s]{4,}";
+
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      
+      if(r.matcher(text).matches()){
+          return 1;
+      }
+      }
+    return 0;
+    
+}
+
+
     private void submitDataToDatabase(){
         
         try{
@@ -169,6 +248,11 @@ public class SignupFrame extends javax.swing.JFrame {
         jTextFieldAddress.setBackground(new java.awt.Color(53, 68, 84));
         jTextFieldAddress.setForeground(new java.awt.Color(255, 255, 204));
         jTextFieldAddress.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 204)));
+        jTextFieldAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldAddressFocusLost(evt);
+            }
+        });
         jTextFieldAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldAddressActionPerformed(evt);
@@ -199,6 +283,11 @@ public class SignupFrame extends javax.swing.JFrame {
         jPasswordField.setBackground(new java.awt.Color(53, 68, 84));
         jPasswordField.setForeground(new java.awt.Color(255, 255, 204));
         jPasswordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 204)));
+        jPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordFieldFocusLost(evt);
+            }
+        });
         jPanel1.add(jPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 240, 20));
 
         jLabel2.setFont(new java.awt.Font("Palatino Linotype", 1, 36)); // NOI18N
@@ -241,6 +330,11 @@ public class SignupFrame extends javax.swing.JFrame {
         jTextFieldName.setBackground(new java.awt.Color(53, 68, 84));
         jTextFieldName.setForeground(new java.awt.Color(255, 255, 204));
         jTextFieldName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 204)));
+        jTextFieldName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldNameFocusLost(evt);
+            }
+        });
         jTextFieldName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNameActionPerformed(evt);
@@ -282,6 +376,11 @@ public class SignupFrame extends javax.swing.JFrame {
         jTextFieldEmail.setBackground(new java.awt.Color(53, 68, 84));
         jTextFieldEmail.setForeground(new java.awt.Color(255, 255, 204));
         jTextFieldEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 204)));
+        jTextFieldEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldEmailFocusLost(evt);
+            }
+        });
         jTextFieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldEmailActionPerformed(evt);
@@ -297,6 +396,11 @@ public class SignupFrame extends javax.swing.JFrame {
         jTextFieldPhone.setBackground(new java.awt.Color(53, 68, 84));
         jTextFieldPhone.setForeground(new java.awt.Color(255, 255, 204));
         jTextFieldPhone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 204)));
+        jTextFieldPhone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldPhoneFocusLost(evt);
+            }
+        });
         jTextFieldPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPhoneActionPerformed(evt);
@@ -338,6 +442,7 @@ public class SignupFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 //        checking password vmaching before submiting 
         int valid = validatePassword( jPasswordField, jPasswordFieldConfirm);
+        
 //        Adding data to database
         if( valid == 1){
             submitDataToDatabase();            
@@ -363,8 +468,59 @@ public class SignupFrame extends javax.swing.JFrame {
 
     private void jPasswordFieldConfirmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFieldConfirmFocusLost
         // TODO add your handling code here:
-        validatePassword( jPasswordField, jPasswordFieldConfirm);
+        if( ! String.valueOf(jPasswordFieldConfirm.getPassword()).equals(""))
+            validatePassword( jPasswordField, jPasswordFieldConfirm);
     }//GEN-LAST:event_jPasswordFieldConfirmFocusLost
+
+    private void jTextFieldNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNameFocusLost
+        // TODO add your handling code here:
+        int valid = checkFieldValidity(jTextFieldName.getText(), CheckFlied.NAME);
+        
+        if(! jTextFieldName.getText().equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Name is Not Valid.\n Name must contains atleast 4 charecters and Only Alphabets are are allowed");
+        }
+    }//GEN-LAST:event_jTextFieldNameFocusLost
+
+    private void jTextFieldEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailFocusLost
+        // TODO add your handling code here:
+        int valid = checkFieldValidity(jTextFieldEmail.getText(), CheckFlied.EMAIL);
+        
+        if(! jTextFieldEmail.getText().equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Email is Not Valid.");
+        }
+    }//GEN-LAST:event_jTextFieldEmailFocusLost
+
+    private void jPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFieldFocusLost
+        // TODO add your handling code here:
+        int valid = checkFieldValidity(String.valueOf(jPasswordField.getPassword()), CheckFlied.PASSWORD);
+        
+        if( ! String.valueOf(jPasswordField.getPassword()).equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Password is Not Valid.\n Password must be atleast 8 digit Alpha Numaric with atleast one special charecter");
+        }
+    }//GEN-LAST:event_jPasswordFieldFocusLost
+
+    private void jTextFieldPhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPhoneFocusLost
+        // TODO add your handling code here:
+        int valid = checkFieldValidity(jTextFieldPhone.getText(), CheckFlied.PHONE);
+        
+        if(! jTextFieldPhone.getText().equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Phone Number is Not Valid");
+        }
+    }//GEN-LAST:event_jTextFieldPhoneFocusLost
+
+    private void jTextFieldAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldAddressFocusLost
+        // TODO add your handling code here:
+        int valid = checkFieldValidity(jTextFieldAddress.getText(), CheckFlied.ADDRESS);
+        
+        if(! jTextFieldAddress.getText().equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Address is Not Valid");
+        }
+    }//GEN-LAST:event_jTextFieldAddressFocusLost
 
     /**
      * @param args the command line arguments

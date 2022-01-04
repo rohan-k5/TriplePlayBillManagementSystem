@@ -4,6 +4,7 @@
  */
 package cablebillmanagement;
 
+import static cablebillmanagement.SignupFrame.checkFieldValidity;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -30,7 +31,7 @@ public class LoginFrame extends javax.swing.JFrame {
     Connection  connection = null;
     public void validateUser(){
         
-        String email = loginIdJTextField.getText();
+        String email = loginIdJTextField.getText().toLowerCase();
         String password = new String(jPasswordField1.getPassword());
         
         connection = ConnectionManager.getConnection();
@@ -77,8 +78,8 @@ public class LoginFrame extends javax.swing.JFrame {
                    ID =Integer.parseInt( set.getString("U_id"));
                    Name = set.getString("U_name");
 //                   setting user name from login user to User UI page
-                   userObj.userNamejLabel.setText(Name);
                    userObj.userID = ID;
+                   userObj.userNamejLabel.setText(Name);
                    userObj.userName = Name;
                    userObj.setVisible(true);
                    this.dispose();
@@ -141,6 +142,18 @@ public class LoginFrame extends javax.swing.JFrame {
         loginIdJTextField.setBackground(new java.awt.Color(53, 68, 84));
         loginIdJTextField.setForeground(new java.awt.Color(255, 255, 204));
         loginIdJTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 204)));
+        loginIdJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                loginIdJTextFieldFocusLost(evt);
+            }
+        });
+        loginIdJTextField.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                loginIdJTextFieldInputMethodTextChanged(evt);
+            }
+        });
         loginIdJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginIdJTextFieldActionPerformed(evt);
@@ -171,6 +184,16 @@ public class LoginFrame extends javax.swing.JFrame {
         jPasswordField1.setBackground(new java.awt.Color(53, 68, 84));
         jPasswordField1.setForeground(new java.awt.Color(255, 255, 204));
         jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 204)));
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusLost(evt);
+            }
+        });
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 240, -1));
 
         jLabel2.setFont(new java.awt.Font("Palatino Linotype", 1, 36)); // NOI18N
@@ -222,6 +245,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void loginIdJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginIdJTextFieldActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_loginIdJTextFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -246,6 +270,42 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         isAdmin = jRadioButtonAdmin.isSelected();
     }//GEN-LAST:event_jRadioButtonUserActionPerformed
+
+    private void loginIdJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginIdJTextFieldFocusLost
+        // TODO add your handling code here:
+        
+        int valid = checkFieldValidity(loginIdJTextField.getText(), SignupFrame.CheckFlied.EMAIL);
+        
+        if(! loginIdJTextField.getText().equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Email is Not Valid.");
+            loginIdJTextField.setText("");
+        }
+        
+    }//GEN-LAST:event_loginIdJTextFieldFocusLost
+
+    private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
+        // TODO add your handling code here:
+//        Before password check. checking its valid email.
+        if(checkFieldValidity(loginIdJTextField.getText(), SignupFrame.CheckFlied.EMAIL) == 0)
+            jPasswordField1.setText("");
+        int valid = checkFieldValidity(String.valueOf(jPasswordField1.getPassword()), SignupFrame.CheckFlied.PASSWORD);
+        
+        if(! String.valueOf(jPasswordField1.getPassword()).equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Entered Password is Not Valid.\n Password must Contains.\n Atleast 8 digit.\n Atleast one Upper case. \n Atleast One Lower case.\n Atleast one Special charecter");
+        }
+        
+    }//GEN-LAST:event_jPasswordField1FocusLost
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void loginIdJTextFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_loginIdJTextFieldInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginIdJTextFieldInputMethodTextChanged
 
     /**
      * @param args the command line arguments

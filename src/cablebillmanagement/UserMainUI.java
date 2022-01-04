@@ -4,6 +4,7 @@
  */
 package cablebillmanagement;
 
+import static cablebillmanagement.SignupFrame.checkFieldValidity;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.sql.Statement;
@@ -28,7 +29,7 @@ public class UserMainUI extends javax.swing.JFrame {
      * Creates new form UserMainUI
      */
      Connection connection = null;
-     public int userID =800;
+     public int userID=800 ;
      public String userName =" No User Name";
 
      public UserMainUI() {
@@ -40,6 +41,7 @@ public class UserMainUI extends javax.swing.JFrame {
         
 //        To initialise Subscrption plan menue drop down with values adn Request table
             addPlanToComboBox();
+            billIDToComboBox();
             displayRequestPlanToUser();
         
         
@@ -239,30 +241,56 @@ public class UserMainUI extends javax.swing.JFrame {
      
  }
  
- private void adminNamesToComboBox(){
+ private void billIDToComboBox(){
      
-     String url = "SELECT Ad_email from ADMIN;";
+     String url = "select B_id from BILL WHERE U_id = "+userID+" AND B_status LIKE 'Pending';";
+     System.out.println("uid :" + userID);
+     try{
+         connection = ConnectionManager.getConnection();
+         PreparedStatement ps = connection.prepareStatement(url);
+
+         ResultSet r=ps.executeQuery();
+         
+//         Removing all default dummy values
+         billIDListjComboBox.removeAllItems();
+        while (r.next()) {  
+
+            billIDListjComboBox.addItem(r.getString(1));  
+        }
+                 
+         
+     }
+     catch( Exception ex){
+         System.out.println(" Error in cablebillmanagement.UserMainUI.billIDToComboBox() : " + ex.getMessage());
+     }
+     
+ }
+ 
+// Plan name for complaint from BIll id
+ private void complaintRaise(int billID){
+     String url = "select Ad_name, Ad_email, Sub_plan, Sub_description from BILL  NATURAL JOIN SUBSCRIPTION_PLAN NATURAL JOIN ADMIN WHERE B_id = "+billID+";";
      try{
          connection = ConnectionManager.getConnection();
          Statement st = connection.createStatement();
 
          ResultSet r=st.executeQuery(url);
          
-//         Removing all default dummy values
-         adminListjComboBox.removeAllItems();
-        while (r.next()) {  
-
-            adminListjComboBox.addItem(r.getString("Ad_email"));  
-        }
+         if(r.next()){
+                adminNameComplaintjLabel.setText(r.getString("Ad_name"));
+                adminEmailComplaintjLabel.setText(r.getString("Ad_email"));
+                planNameComplaintjLabel.setText(r.getString("Sub_plan"));
+                planDescComplaintjLabel.setText(r.getString("Sub_description"));
+         }
+            
+            
                  
          
      }
      catch( Exception ex){
-         System.out.println(" Error in cablebillmanagement.UserMainUI.adminNamesInItemList() : " + ex.getMessage());
+         System.out.println(" Error in cablebillmanagement.UserMainUI.billIDToComboBox() : " + ex.getMessage());
      }
      
  }
- 
 //    Adding Complaint to table from user.
  private void addComplaintToTable(String email, String complaint){
      String url = "INSERT INTO COMPLAINTS (U_id, Ad_id, Complaint) VALUES ("+userID+", (select Ad_id from admin where Ad_email ='"+email+"'), '"+complaint+"');";
@@ -402,6 +430,7 @@ private void updateUserPassword(String password ){
         }
     
 }
+
   
     /**
      * This method is called from within the constructor to initialize the form.
@@ -438,18 +467,6 @@ private void updateUserPassword(String password ){
         jPanel11 = new javax.swing.JPanel();
         userLogoutjButton = new javax.swing.JButton();
         RightBottomContentUserjPanel = new javax.swing.JPanel();
-        UserChangeCredentialUIjPanel = new javax.swing.JPanel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        userNameInProfilejLabel = new javax.swing.JLabel();
-        jSeparator8 = new javax.swing.JSeparator();
-        adminProfilejLabel = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        newUserjPasswordField = new javax.swing.JPasswordField();
-        confirmConfirmjPasswordField = new javax.swing.JPasswordField();
-        jSeparator9 = new javax.swing.JSeparator();
-        jSeparator10 = new javax.swing.JSeparator();
-        updatePasswordjButton = new javax.swing.JButton();
         SubscriptionPlansUIjPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -469,26 +486,47 @@ private void updateUserPassword(String password ){
         requestedPlanjScrollPane = new javax.swing.JScrollPane();
         requestedPlanjTable = new javax.swing.JTable();
         UserComplaintsUIjPanel = new javax.swing.JPanel();
-        AddPlanContainerjPanel = new javax.swing.JPanel();
+        AddPlanComplaintjPanel = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        complaintDescriptionjTextField = new javax.swing.JTextField();
-        jPanel7 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        adminListjComboBox = new javax.swing.JComboBox<>();
+        billIDListjComboBox = new javax.swing.JComboBox<>();
+        adminNameComplaintjLabel = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        adminEmailComplaintjLabel = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        planNameComplaintjLabel = new javax.swing.JLabel();
+        jSeparator12 = new javax.swing.JSeparator();
+        jLabel19 = new javax.swing.JLabel();
+        planDescComplaintjLabel = new javax.swing.JLabel();
+        jSeparator13 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         addPlanjButton = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        adminNameSelectedjLabel = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        complaintDescriptionjTextField = new javax.swing.JTextField();
         jPanel15 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         addPlanjButton1 = new javax.swing.JButton();
         raisedComplaintjScrollPane = new javax.swing.JScrollPane();
         raisedComplaintjTable = new javax.swing.JTable();
+        UserChangeCredentialUIjPanel = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        userNameInProfilejLabel = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        adminProfilejLabel = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        newUserjPasswordField = new javax.swing.JPasswordField();
+        confirmConfirmjPasswordField = new javax.swing.JPasswordField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        updatePasswordjButton = new javax.swing.JButton();
         PendingPaymentUIjPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -670,114 +708,6 @@ private void updateUserPassword(String password ){
         RightBottomContentUserjPanel.setAlignmentX(0.0F);
         RightBottomContentUserjPanel.setLayout(new javax.swing.OverlayLayout(RightBottomContentUserjPanel));
 
-        UserChangeCredentialUIjPanel.setBackground(new java.awt.Color(125, 159, 154));
-        UserChangeCredentialUIjPanel.setLayout(new java.awt.BorderLayout());
-
-        jPanel18.setBackground(new java.awt.Color(125, 159, 154));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(51, 0, 51));
-        jLabel14.setText("Confirm Password");
-
-        userNameInProfilejLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        userNameInProfilejLabel.setForeground(new java.awt.Color(51, 0, 51));
-        userNameInProfilejLabel.setText("User Name 1111");
-
-        adminProfilejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        adminProfilejLabel.setForeground(new java.awt.Color(51, 0, 51));
-        adminProfilejLabel.setText("User Name");
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(51, 0, 51));
-        jLabel16.setText("New Password");
-
-        confirmConfirmjPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                confirmConfirmjPasswordFieldFocusLost(evt);
-            }
-        });
-        confirmConfirmjPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                confirmConfirmjPasswordFieldMouseExited(evt);
-            }
-        });
-
-        updatePasswordjButton.setBackground(new java.awt.Color(94, 185, 228));
-        updatePasswordjButton.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
-        updatePasswordjButton.setText("Update Password");
-        updatePasswordjButton.setBorder(null);
-        updatePasswordjButton.setFocusable(false);
-        updatePasswordjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updatePasswordjButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(newUserjPasswordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(confirmConfirmjPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(jSeparator9))
-                        .addGap(231, 231, 231))
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adminProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userNameInProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(updatePasswordjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(adminProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userNameInProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(65, 65, 65)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(confirmConfirmjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1))
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(newUserjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36)
-                .addComponent(updatePasswordjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
-        );
-
-        UserChangeCredentialUIjPanel.add(jPanel18, java.awt.BorderLayout.CENTER);
-
-        RightBottomContentUserjPanel.add(UserChangeCredentialUIjPanel);
-
         SubscriptionPlansUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
         SubscriptionPlansUIjPanel.setLayout(new java.awt.GridLayout(1, 1));
 
@@ -815,7 +745,7 @@ private void updateUserPassword(String password ){
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(planNamejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(planListjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -842,7 +772,7 @@ private void updateUserPassword(String password ){
         planDesciptionjLabel.setForeground(new java.awt.Color(51, 0, 51));
         planDesciptionjLabel.setText("This plan includes ");
         jPanel14.add(planDesciptionjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 370, 27));
-        jPanel14.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 100, 380, 17));
+        jPanel14.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 380, 17));
 
         jButton1.setBackground(new java.awt.Color(51, 204, 255));
         jButton1.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
@@ -893,7 +823,7 @@ private void updateUserPassword(String password ){
                 .addContainerGap()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(requestedPlanjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE)
+            .addComponent(requestedPlanjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -937,45 +867,89 @@ private void updateUserPassword(String password ){
         UserComplaintsUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
         UserComplaintsUIjPanel.setLayout(new java.awt.GridLayout(2, 1));
 
-        AddPlanContainerjPanel.setBackground(new java.awt.Color(125, 159, 154));
-        AddPlanContainerjPanel.setLayout(new java.awt.GridLayout(1, 3));
+        AddPlanComplaintjPanel.setBackground(new java.awt.Color(125, 159, 154));
+        AddPlanComplaintjPanel.setLayout(new java.awt.GridLayout(1, 3));
 
         jPanel6.setBackground(new java.awt.Color(125, 159, 154));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(51, 0, 51));
-        jLabel7.setText("Complain Description");
-        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 140, 40));
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel12.setText("Select Bill ");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 100, 40));
 
-        complaintDescriptionjTextField.setBackground(new java.awt.Color(125, 159, 154));
-        complaintDescriptionjTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        complaintDescriptionjTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                complaintDescriptionjTextFieldActionPerformed(evt);
+        billIDListjComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        billIDListjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        billIDListjComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                billIDListjComboBoxItemStateChanged(evt);
             }
         });
-        jPanel6.add(complaintDescriptionjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 160, 30));
+        billIDListjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billIDListjComboBoxActionPerformed(evt);
+            }
+        });
+        jPanel6.add(billIDListjComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 130, -1));
 
-        AddPlanContainerjPanel.add(jPanel6);
+        adminNameComplaintjLabel.setFont(new java.awt.Font("Palatino Linotype", 1, 14)); // NOI18N
+        adminNameComplaintjLabel.setForeground(new java.awt.Color(255, 255, 255));
+        adminNameComplaintjLabel.setText("Amin1");
+        jPanel6.add(adminNameComplaintjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 110, 30));
+
+        jLabel17.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel17.setText("Admin Name");
+        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 100, 40));
+
+        jSeparator5.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel6.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 120, 20));
+
+        AddPlanComplaintjPanel.add(jPanel6);
 
         jPanel7.setBackground(new java.awt.Color(125, 159, 154));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(51, 0, 51));
-        jLabel12.setText("To Admin email ");
-        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 100, 40));
+        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel13.setText("Plan Name");
+        jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 100, 40));
 
-        adminListjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        adminListjComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminListjComboBoxActionPerformed(evt);
-            }
-        });
-        jPanel7.add(adminListjComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 150, -1));
+        jLabel18.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel18.setText("Admin Email");
+        jPanel7.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 100, 40));
 
-        AddPlanContainerjPanel.add(jPanel7);
+        adminEmailComplaintjLabel.setFont(new java.awt.Font("Palatino Linotype", 1, 12)); // NOI18N
+        adminEmailComplaintjLabel.setForeground(new java.awt.Color(255, 255, 255));
+        adminEmailComplaintjLabel.setText("Amin1");
+        jPanel7.add(adminEmailComplaintjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 120, 30));
+
+        jSeparator11.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel7.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 120, 20));
+
+        planNameComplaintjLabel.setFont(new java.awt.Font("Palatino Linotype", 1, 12)); // NOI18N
+        planNameComplaintjLabel.setForeground(new java.awt.Color(255, 255, 255));
+        planNameComplaintjLabel.setText("Amin1");
+        jPanel7.add(planNameComplaintjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 140, 30));
+
+        jSeparator12.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel7.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 150, 20));
+
+        jLabel19.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel19.setText("Plan Description");
+        jPanel7.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 100, 40));
+
+        planDescComplaintjLabel.setFont(new java.awt.Font("Palatino Linotype", 1, 14)); // NOI18N
+        planDescComplaintjLabel.setForeground(new java.awt.Color(255, 255, 255));
+        planDescComplaintjLabel.setText("Amin1");
+        jPanel7.add(planDescComplaintjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 260, 30));
+
+        jSeparator13.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel7.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 280, 20));
+
+        AddPlanComplaintjPanel.add(jPanel7);
 
         jPanel3.setBackground(new java.awt.Color(125, 159, 154));
         jPanel3.setLayout(new java.awt.BorderLayout());
@@ -1005,7 +979,7 @@ private void updateUserPassword(String password ){
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap(164, Short.MAX_VALUE)
+                .addContainerGap(171, Short.MAX_VALUE)
                 .addComponent(addPlanjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -1022,24 +996,25 @@ private void updateUserPassword(String password ){
         jPanel13.setBackground(new java.awt.Color(125, 159, 154));
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(51, 0, 51));
-        jLabel13.setText("Admin Name");
-        jPanel13.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 100, 40));
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel7.setText("Complain Description");
+        jPanel13.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 140, 40));
 
-        adminNameSelectedjLabel.setFont(new java.awt.Font("Palatino Linotype", 1, 18)); // NOI18N
-        adminNameSelectedjLabel.setForeground(new java.awt.Color(255, 255, 255));
-        adminNameSelectedjLabel.setText("Amin1");
-        jPanel13.add(adminNameSelectedjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 170, 30));
-
-        jSeparator5.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel13.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 160, 20));
+        complaintDescriptionjTextField.setBackground(new java.awt.Color(125, 159, 154));
+        complaintDescriptionjTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        complaintDescriptionjTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                complaintDescriptionjTextFieldActionPerformed(evt);
+            }
+        });
+        jPanel13.add(complaintDescriptionjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 160, 30));
 
         jPanel3.add(jPanel13, java.awt.BorderLayout.CENTER);
 
-        AddPlanContainerjPanel.add(jPanel3);
+        AddPlanComplaintjPanel.add(jPanel3);
 
-        UserComplaintsUIjPanel.add(AddPlanContainerjPanel);
+        UserComplaintsUIjPanel.add(AddPlanComplaintjPanel);
 
         jPanel15.setBackground(new java.awt.Color(125, 159, 154));
 
@@ -1100,7 +1075,7 @@ private void updateUserPassword(String password ){
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(raisedComplaintjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)))
+                    .addComponent(raisedComplaintjScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1118,6 +1093,120 @@ private void updateUserPassword(String password ){
         UserComplaintsUIjPanel.add(jPanel15);
 
         RightBottomContentUserjPanel.add(UserComplaintsUIjPanel);
+
+        UserChangeCredentialUIjPanel.setBackground(new java.awt.Color(125, 159, 154));
+        UserChangeCredentialUIjPanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel18.setBackground(new java.awt.Color(125, 159, 154));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel14.setText("Confirm Password");
+
+        userNameInProfilejLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        userNameInProfilejLabel.setForeground(new java.awt.Color(51, 0, 51));
+        userNameInProfilejLabel.setText("User Name 1111");
+
+        adminProfilejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        adminProfilejLabel.setForeground(new java.awt.Color(51, 0, 51));
+        adminProfilejLabel.setText("User Name");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel16.setText("New Password");
+
+        newUserjPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                newUserjPasswordFieldFocusLost(evt);
+            }
+        });
+
+        confirmConfirmjPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                confirmConfirmjPasswordFieldFocusLost(evt);
+            }
+        });
+        confirmConfirmjPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                confirmConfirmjPasswordFieldMouseExited(evt);
+            }
+        });
+
+        updatePasswordjButton.setBackground(new java.awt.Color(94, 185, 228));
+        updatePasswordjButton.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
+        updatePasswordjButton.setText("Update Password");
+        updatePasswordjButton.setBorder(null);
+        updatePasswordjButton.setFocusable(false);
+        updatePasswordjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatePasswordjButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(newUserjPasswordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmConfirmjPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(jSeparator9))
+                        .addGap(231, 231, 231))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(adminProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userNameInProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updatePasswordjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(adminProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userNameInProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(confirmConfirmjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(newUserjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36)
+                .addComponent(updatePasswordjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
+        );
+
+        UserChangeCredentialUIjPanel.add(jPanel18, java.awt.BorderLayout.CENTER);
+
+        RightBottomContentUserjPanel.add(UserChangeCredentialUIjPanel);
 
         PendingPaymentUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
         PendingPaymentUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
@@ -1181,7 +1270,7 @@ private void updateUserPassword(String password ){
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24))))
         );
@@ -1266,7 +1355,7 @@ private void updateUserPassword(String password ){
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
                         .addComponent(billHistoryRefreshjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24))))
         );
@@ -1334,7 +1423,7 @@ private void updateUserPassword(String password ){
         highlightClicked(userComplaintsJPanel, userComplaintsTextjLabel);
         
 //        Initialising Admin names to Drop down -- JCombo box
-            adminNamesToComboBox();
+            billIDToComboBox();
             
             displayRaisedComplaints();
         showThisPane(UserComplaintsUIjPanel);
@@ -1391,7 +1480,7 @@ private void updateUserPassword(String password ){
             JOptionPane.showMessageDialog(this, "Complain Description is Empty !!!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
         else{
-            String email = String.valueOf(adminListjComboBox.getSelectedItem());
+            String email = String.valueOf(billIDListjComboBox.getSelectedItem());
             String complaint = complaintDescriptionjTextField.getText();
             addComplaintToTable(email, complaint );
         }
@@ -1415,12 +1504,13 @@ private void updateUserPassword(String password ){
         displayRaisedComplaints();
     }//GEN-LAST:event_addPlanjButton1ActionPerformed
 
-    private void adminListjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminListjComboBoxActionPerformed
+    private void billIDListjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billIDListjComboBoxActionPerformed
         // TODO add your handling code here:\
-        
-        String selectedAdminName = String.valueOf(adminListjComboBox.getSelectedItem());
-        adminNameSelectedjLabel.setText(selectedAdminName);
-    }//GEN-LAST:event_adminListjComboBoxActionPerformed
+//        String ID = String.valueOf(billIDListjComboBox.getSelectedItem());
+        int billID = Integer.parseInt(String.valueOf(billIDListjComboBox.getSelectedItem()));
+        System.out.println("Selected Bill ID: " + billID);
+        complaintRaise(billID);
+    }//GEN-LAST:event_billIDListjComboBoxActionPerformed
 
     private void planListjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planListjComboBoxActionPerformed
         // TODO add your handling code here:
@@ -1476,6 +1566,21 @@ private void updateUserPassword(String password ){
         showThisPane(UserChangeCredentialUIjPanel);
     }//GEN-LAST:event_userChangeCredentialJPanelMouseClicked
 
+    private void newUserjPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newUserjPasswordFieldFocusLost
+        // TODO add your handling code here:
+        int valid = checkFieldValidity(String.valueOf(newUserjPasswordField.getPassword()), SignupFrame.CheckFlied.PASSWORD);
+        
+        if( ! String.valueOf(newUserjPasswordField.getPassword()).equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Password is Not Valid.\n Password must be atleast 8 digit Alpha Numaric with atleast one special charecter");
+        }
+    }//GEN-LAST:event_newUserjPasswordFieldFocusLost
+
+    private void billIDListjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_billIDListjComboBoxItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_billIDListjComboBoxItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1520,7 +1625,7 @@ private void updateUserPassword(String password ){
     private javax.swing.table.JTableHeader requestedPlanjTableHeader;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AddPlanContainerjPanel;
+    private javax.swing.JPanel AddPlanComplaintjPanel;
     private javax.swing.JPanel BillingHistoryUIjPanel;
     private javax.swing.JPanel PendingPaymentUIjPanel;
     private javax.swing.JPanel RightBottomContentUserjPanel;
@@ -1529,11 +1634,12 @@ private void updateUserPassword(String password ){
     private javax.swing.JPanel UserComplaintsUIjPanel;
     private javax.swing.JButton addPlanjButton;
     private javax.swing.JButton addPlanjButton1;
-    private javax.swing.JComboBox<String> adminListjComboBox;
-    private javax.swing.JLabel adminNameSelectedjLabel;
+    private javax.swing.JLabel adminEmailComplaintjLabel;
+    private javax.swing.JLabel adminNameComplaintjLabel;
     private javax.swing.JLabel adminProfilejLabel;
     private javax.swing.JButton billHistoryRefreshjButton;
     private javax.swing.JTable billHistoryjTable;
+    private javax.swing.JComboBox<String> billIDListjComboBox;
     private javax.swing.JPanel billingHistoryJPanel;
     private javax.swing.JLabel billingHistoryTextjLabel;
     private javax.swing.JScrollPane billingHistoryjScrollPane;
@@ -1551,6 +1657,9 @@ private void updateUserPassword(String password ){
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1579,6 +1688,9 @@ private void updateUserPassword(String password ){
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1592,9 +1704,11 @@ private void updateUserPassword(String password ){
     private javax.swing.JLabel pendingPaymentTextjLabel;
     private javax.swing.JScrollPane pendingPaymentjScrollPane;
     private javax.swing.JTable pendingPaymentjTable;
+    private javax.swing.JLabel planDescComplaintjLabel;
     private javax.swing.JLabel planDesciptionjLabel;
     private javax.swing.JLabel planDetailsjLabel;
     private javax.swing.JComboBox<String> planListjComboBox;
+    private javax.swing.JLabel planNameComplaintjLabel;
     private javax.swing.JLabel planNamejLabel;
     private javax.swing.JScrollPane raisedComplaintjScrollPane;
     private javax.swing.JTable raisedComplaintjTable;

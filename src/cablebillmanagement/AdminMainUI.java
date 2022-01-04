@@ -4,6 +4,7 @@
  */
 package cablebillmanagement;
 
+import static cablebillmanagement.SignupFrame.checkFieldValidity;
 import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import java.awt.Color;
 import java.awt.Font;
@@ -196,7 +197,7 @@ public class AdminMainUI extends javax.swing.JFrame {
     private void generateBill( int requestID, String date){
         
         String requestQuery = "UPDATE REQUEST_PLANS SET R_status = 'Processed' WHERE R_id = " +requestID+" ;";
-        String billGenerateQuery = "INSERT INTO BILL (U_id, Sub_id, B_issue_date, B_due_date)  SELECT U_id,Sub_id, curdate(),'" +date+"' FROM REQUEST_PLANS WHERE R_id = " +requestID+" ;";
+        String billGenerateQuery = "INSERT INTO BILL (U_id, Ad_id, Sub_id, B_issue_date, B_due_date)  SELECT U_id, "+adminID+" ,Sub_id, curdate(),'" +date+"' FROM REQUEST_PLANS WHERE R_id = " +requestID+" ;";
         
         try{
             connection = ConnectionManager.getConnection();
@@ -226,7 +227,7 @@ public class AdminMainUI extends javax.swing.JFrame {
 //    ******************************** Show Bill table in Manage user Option
     
   private void displayBillListInTable(){
-        String url = "select U_name, Sub_plan, B_status, B_issue_date, B_due_date from BILL AS B JOIN subscription_plan AS S ON S.SUb_id =B.Sub_id JOIN USER AS U ON U.U_id = B.U_id order by B_status desc;";
+        String url = "select B_id, U_name, Sub_plan, B_status, B_issue_date, B_due_date from BILL AS B JOIN subscription_plan AS S ON S.SUb_id =B.Sub_id JOIN USER AS U ON U.U_id = B.U_id order by B_status desc;";
         
         try{
             connection = ConnectionManager.getConnection();
@@ -238,7 +239,7 @@ public class AdminMainUI extends javax.swing.JFrame {
             model.setRowCount(0);
             
             while(rs.next()){
-                model.addRow(new String[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5)});
+                model.addRow(new String[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6)});
             }
             
         }
@@ -688,6 +689,12 @@ private void updateAdminPassword(String password ){
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(51, 0, 51));
         jLabel16.setText("New Password");
+
+        newAdminjPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                newAdminjPasswordFieldFocusLost(evt);
+            }
+        });
 
         confirmAdminjPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -1206,13 +1213,13 @@ private void updateAdminPassword(String password ){
         billListjTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         billListjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null,null, null},
-                {null, null, null,null, null},
-                {null, null, null,null, null},
-                {null, null, null,null, null}
+                {null, null, null, null,null, null},
+                {null, null, null, null,null, null},
+                {null, null, null, null,null, null},
+                {null, null, null, null,null, null}
             },
             new String [] {
-                "User Name", " Subscription"," Status", "Date Isuue", "Due Date"
+                "Bill Id","User Name", " Subscription"," Status", "Date Isuue", "Due Date"
             }
         ));
         billListjTable.setRowHeight(32);
@@ -1453,7 +1460,7 @@ private void updateAdminPassword(String password ){
               int rowIndex = requestShowjTable.getSelectedRow();
               int requestID =Integer.parseInt( requestShowjTable.getModel().getValueAt(rowIndex, 0).toString() );
               
-              String dueDate = JOptionPane.showInputDialog("Enter Due date in YYYY/MM/DD format");
+              String dueDate = JOptionPane.showInputDialog("Enter Due date in YYYY-MM-DD format");
               System.out.println(" Due date : " + dueDate);
               
               try{
@@ -1559,6 +1566,16 @@ private void updateAdminPassword(String password ){
         // TODO add your handling code here:
         
     }//GEN-LAST:event_confirmAdminjPasswordFieldMouseExited
+
+    private void newAdminjPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newAdminjPasswordFieldFocusLost
+        // TODO add your handling code here:
+        int valid = checkFieldValidity(String.valueOf(newAdminjPasswordField.getPassword()), SignupFrame.CheckFlied.PASSWORD);
+        
+        if( ! String.valueOf(newAdminjPasswordField.getPassword()).equals(""))
+        if(valid == 0 ){
+            JOptionPane.showMessageDialog(this, "Password is Not Valid.\n Password must be atleast 8 digit Alpha Numaric with atleast one special charecter");
+        }
+    }//GEN-LAST:event_newAdminjPasswordFieldFocusLost
 
     /**
      * @param args the command line arguments
