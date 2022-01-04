@@ -499,7 +499,7 @@ private void updateAdminPassword(String password ){
         tempjPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cable Bill Management - Admin");
+        setTitle("Triple Play Bill Management - Admin");
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
 

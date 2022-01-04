@@ -229,7 +229,7 @@ public static int checkFieldValidity(String text , CheckFlied field){
         jTextFieldPhone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cable Bill Management - SignUp");
+        setTitle("Triple Play Bill Management - SignUp");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(53, 68, 84));
@@ -479,6 +479,7 @@ public static int checkFieldValidity(String text , CheckFlied field){
         if(! jTextFieldName.getText().equals(""))
         if(valid == 0 ){
             JOptionPane.showMessageDialog(this, "Name is Not Valid.\n Name must contains atleast 4 charecters and Only Alphabets are are allowed");
+            jTextFieldName.setText("");
         }
     }//GEN-LAST:event_jTextFieldNameFocusLost
 

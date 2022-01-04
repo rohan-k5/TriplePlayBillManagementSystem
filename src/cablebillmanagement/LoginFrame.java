@@ -5,6 +5,7 @@
 package cablebillmanagement;
 
 import static cablebillmanagement.SignupFrame.checkFieldValidity;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -22,11 +23,17 @@ public class LoginFrame extends javax.swing.JFrame {
     private String Name;
     boolean isAdmin = false;
     public LoginFrame() {
+        
         initComponents();
+        setIconImage();
         this.setLocationRelativeTo(null);
-//        scaleImage();
+        
     }
 
+    private void setIconImage(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_laptop_24px.png"))); 
+    }
+    
 //    validating user login here
     Connection  connection = null;
     public void validateUser(){
@@ -123,7 +130,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cable Bill Management - Login");
+        setTitle("Triple Play Bill Management  - Login");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(53, 68, 84));
