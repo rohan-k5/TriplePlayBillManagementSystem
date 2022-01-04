@@ -6,6 +6,7 @@ package cablebillmanagement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -71,15 +72,18 @@ public class SignupFrame extends javax.swing.JFrame {
     }
     
 //    validating passward
-    private void validatePassword(){
-        String testPassword1 = new String(jPasswordField.getPassword());
-        String testPassword2 = new String ( jPasswordFieldConfirm.getPassword());
+    public static int validatePassword( JPasswordField passoword, JPasswordField confirmPassword){
+        String testPassword1 = new String(passoword.getPassword());
+        String testPassword2 = new String ( confirmPassword.getPassword());
         
         if( !testPassword1.equals(testPassword2)) {
-            JOptionPane.showMessageDialog(this, " The password does not match, Please check it again. ");
-            jPasswordField.setText("");
-            jPasswordFieldConfirm.setText("");
+            JOptionPane.showMessageDialog(null, " The password does not match, Please check it again. ");
+            passoword.setText("");
+            confirmPassword.setText("");
+            
+            return 0;
         }
+        return 1;
     }
     
     
@@ -333,9 +337,11 @@ public class SignupFrame extends javax.swing.JFrame {
     private void jButtonSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSignupActionPerformed
         // TODO add your handling code here:
 //        checking password vmaching before submiting 
-        validatePassword();
+        int valid = validatePassword( jPasswordField, jPasswordFieldConfirm);
 //        Adding data to database
-        submitDataToDatabase();
+        if( valid == 1){
+            submitDataToDatabase();            
+        }
     }//GEN-LAST:event_jButtonSignupActionPerformed
 
     private void jRadioButtonUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUserActionPerformed
@@ -357,7 +363,7 @@ public class SignupFrame extends javax.swing.JFrame {
 
     private void jPasswordFieldConfirmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFieldConfirmFocusLost
         // TODO add your handling code here:
-        validatePassword();
+        validatePassword( jPasswordField, jPasswordFieldConfirm);
     }//GEN-LAST:event_jPasswordFieldConfirmFocusLost
 
     /**

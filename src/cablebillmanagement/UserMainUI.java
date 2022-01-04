@@ -72,11 +72,13 @@ public class UserMainUI extends javax.swing.JFrame {
         pendingPaymentJPanel.setBackground(new Color(61,81,85));
         billingHistoryJPanel.setBackground(new Color(61,81,85));
         userComplaintsJPanel.setBackground(new Color(61,81,85));
+        userChangeCredentialJPanel.setBackground(new Color(61,81,85));
 //        changing font colr
         subscriptionPlansTextjLabel.setForeground(new Color(255,255,255));
         pendingPaymentTextjLabel.setForeground(new Color(255,255,255));
         billingHistoryTextjLabel.setForeground(new Color(255,255,255));
         userComplaintsTextjLabel.setForeground(new Color(255,255,255));
+        userChangeCredentialTextjLabel.setForeground(new Color(255,255,255));
     }
     
 //    changing menu color to make highlight clicked button
@@ -92,6 +94,7 @@ public class UserMainUI extends javax.swing.JFrame {
         SubscriptionPlansUIjPanel.setVisible(false);
         BillingHistoryUIjPanel.setVisible(false);
         UserComplaintsUIjPanel.setVisible(false);
+        UserChangeCredentialUIjPanel.setVisible(false);
         
         myPane.setVisible(true);
     }
@@ -368,7 +371,38 @@ public class UserMainUI extends javax.swing.JFrame {
      }
  }
  
- 
+ //  *******************************Profile ***************************
+private void updateUserPassword(String password ){
+    String url = "UPDATE USER SET U_pass = '"+password+"' WHERE U_id = "+this.userID+";";
+    try{
+            connection = ConnectionManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(url);
+            
+            int choice = JOptionPane.showConfirmDialog(this, "Do You Want To Change Password ?"," Confirmation", JOptionPane.YES_NO_OPTION );
+//            ) means YES
+            if ( choice == 0){
+            System.out.println("Choice: " + choice);
+            
+                int i = ps.executeUpdate();
+                System.out.println(" i = " + i);
+                if( i> 0){
+                    int loginAgain = JOptionPane.showConfirmDialog(this, "Do You Want To Login Again ?"," Confirmation", JOptionPane.YES_NO_OPTION );
+                    if( loginAgain ==0 ){
+//                        Opening Login lage
+                        new LoginFrame().setVisible(true);
+//                        closing Current page
+                        this.dispose();
+                    }
+                 }
+            }
+        }
+//    
+        catch( SQLException ex){
+            System.out.println("Error in cablebillmanagement.AdminMainUI.updateUserPassword() : " + ex.getMessage());
+        }
+    
+}
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -394,6 +428,9 @@ public class UserMainUI extends javax.swing.JFrame {
         userComplaintsJPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         userComplaintsTextjLabel = new javax.swing.JLabel();
+        userChangeCredentialJPanel = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        userChangeCredentialTextjLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         headerOfUserUIjPanel = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -401,6 +438,18 @@ public class UserMainUI extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         userLogoutjButton = new javax.swing.JButton();
         RightBottomContentUserjPanel = new javax.swing.JPanel();
+        UserChangeCredentialUIjPanel = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        userNameInProfilejLabel = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        adminProfilejLabel = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        newUserjPasswordField = new javax.swing.JPasswordField();
+        confirmConfirmjPasswordField = new javax.swing.JPasswordField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        updatePasswordjButton = new javax.swing.JButton();
         SubscriptionPlansUIjPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -556,6 +605,27 @@ public class UserMainUI extends javax.swing.JFrame {
 
         userMenujPanel.add(userComplaintsJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 200, 40));
 
+        userChangeCredentialJPanel.setBackground(new java.awt.Color(61, 81, 85));
+        userChangeCredentialJPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(125, 159, 154)));
+        userChangeCredentialJPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userChangeCredentialJPanelMouseClicked(evt);
+            }
+        });
+        userChangeCredentialJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_registration_24px_3.png"))); // NOI18N
+        userChangeCredentialJPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 30, 40));
+
+        userChangeCredentialTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
+        userChangeCredentialTextjLabel.setForeground(new java.awt.Color(255, 255, 255));
+        userChangeCredentialTextjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        userChangeCredentialTextjLabel.setText("Chance Credential");
+        userChangeCredentialJPanel.add(userChangeCredentialTextjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 120, 20));
+
+        userMenujPanel.add(userChangeCredentialJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 200, 40));
+
         getContentPane().add(userMenujPanel, java.awt.BorderLayout.LINE_START);
 
         jPanel5.setLayout(new java.awt.BorderLayout());
@@ -599,6 +669,114 @@ public class UserMainUI extends javax.swing.JFrame {
         RightBottomContentUserjPanel.setBackground(new java.awt.Color(125, 159, 154));
         RightBottomContentUserjPanel.setAlignmentX(0.0F);
         RightBottomContentUserjPanel.setLayout(new javax.swing.OverlayLayout(RightBottomContentUserjPanel));
+
+        UserChangeCredentialUIjPanel.setBackground(new java.awt.Color(125, 159, 154));
+        UserChangeCredentialUIjPanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel18.setBackground(new java.awt.Color(125, 159, 154));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel14.setText("Confirm Password");
+
+        userNameInProfilejLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        userNameInProfilejLabel.setForeground(new java.awt.Color(51, 0, 51));
+        userNameInProfilejLabel.setText("User Name 1111");
+
+        adminProfilejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        adminProfilejLabel.setForeground(new java.awt.Color(51, 0, 51));
+        adminProfilejLabel.setText("User Name");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel16.setText("New Password");
+
+        confirmConfirmjPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                confirmConfirmjPasswordFieldFocusLost(evt);
+            }
+        });
+        confirmConfirmjPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                confirmConfirmjPasswordFieldMouseExited(evt);
+            }
+        });
+
+        updatePasswordjButton.setBackground(new java.awt.Color(94, 185, 228));
+        updatePasswordjButton.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
+        updatePasswordjButton.setText("Update Password");
+        updatePasswordjButton.setBorder(null);
+        updatePasswordjButton.setFocusable(false);
+        updatePasswordjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatePasswordjButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(newUserjPasswordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmConfirmjPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(jSeparator9))
+                        .addGap(231, 231, 231))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(adminProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userNameInProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updatePasswordjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(adminProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userNameInProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(confirmConfirmjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(newUserjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36)
+                .addComponent(updatePasswordjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
+        );
+
+        UserChangeCredentialUIjPanel.add(jPanel18, java.awt.BorderLayout.CENTER);
+
+        RightBottomContentUserjPanel.add(UserChangeCredentialUIjPanel);
 
         SubscriptionPlansUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
         SubscriptionPlansUIjPanel.setLayout(new java.awt.GridLayout(1, 1));
@@ -942,7 +1120,7 @@ public class UserMainUI extends javax.swing.JFrame {
         RightBottomContentUserjPanel.add(UserComplaintsUIjPanel);
 
         PendingPaymentUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
-        PendingPaymentUIjPanel.setLayout(new java.awt.GridLayout());
+        PendingPaymentUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setBackground(new java.awt.Color(125, 159, 154));
 
@@ -1027,7 +1205,7 @@ public class UserMainUI extends javax.swing.JFrame {
         RightBottomContentUserjPanel.add(PendingPaymentUIjPanel);
 
         BillingHistoryUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
-        BillingHistoryUIjPanel.setLayout(new java.awt.GridLayout());
+        BillingHistoryUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setBackground(new java.awt.Color(125, 159, 154));
 
@@ -1270,6 +1448,34 @@ public class UserMainUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void confirmConfirmjPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmConfirmjPasswordFieldFocusLost
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_confirmConfirmjPasswordFieldFocusLost
+
+    private void confirmConfirmjPasswordFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmConfirmjPasswordFieldMouseExited
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_confirmConfirmjPasswordFieldMouseExited
+
+    private void updatePasswordjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePasswordjButtonActionPerformed
+        // TODO add your handling code here:
+        int valid = SignupFrame.validatePassword(newUserjPasswordField, confirmConfirmjPasswordField);
+        if( valid ==1){
+            String password = String.valueOf(newUserjPasswordField.getPassword());
+            updateUserPassword(password);
+        }
+    }//GEN-LAST:event_updatePasswordjButtonActionPerformed
+
+    private void userChangeCredentialJPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userChangeCredentialJPanelMouseClicked
+        // TODO add your handling code here:
+        changeTOBtnDefaultColor();
+        highlightClicked(userChangeCredentialJPanel , userChangeCredentialTextjLabel);
+        
+        userNameInProfilejLabel.setText(userName);
+        showThisPane(UserChangeCredentialUIjPanel);
+    }//GEN-LAST:event_userChangeCredentialJPanelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1319,17 +1525,20 @@ public class UserMainUI extends javax.swing.JFrame {
     private javax.swing.JPanel PendingPaymentUIjPanel;
     private javax.swing.JPanel RightBottomContentUserjPanel;
     private javax.swing.JPanel SubscriptionPlansUIjPanel;
+    private javax.swing.JPanel UserChangeCredentialUIjPanel;
     private javax.swing.JPanel UserComplaintsUIjPanel;
     private javax.swing.JButton addPlanjButton;
     private javax.swing.JButton addPlanjButton1;
     private javax.swing.JComboBox<String> adminListjComboBox;
     private javax.swing.JLabel adminNameSelectedjLabel;
+    private javax.swing.JLabel adminProfilejLabel;
     private javax.swing.JButton billHistoryRefreshjButton;
     private javax.swing.JTable billHistoryjTable;
     private javax.swing.JPanel billingHistoryJPanel;
     private javax.swing.JLabel billingHistoryTextjLabel;
     private javax.swing.JScrollPane billingHistoryjScrollPane;
     private javax.swing.JTextField complaintDescriptionjTextField;
+    private javax.swing.JPasswordField confirmConfirmjPasswordField;
     private javax.swing.JPanel headerOfUserUIjPanel;
     private javax.swing.JLabel headingOfPagejLabel;
     private javax.swing.JButton jButton1;
@@ -1339,6 +1548,9 @@ public class UserMainUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1356,6 +1568,7 @@ public class UserMainUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1365,12 +1578,16 @@ public class UserMainUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JPasswordField newUserjPasswordField;
     private javax.swing.JPanel pendingPaymentJPanel;
     private javax.swing.JLabel pendingPaymentTextjLabel;
     private javax.swing.JScrollPane pendingPaymentjScrollPane;
@@ -1385,10 +1602,14 @@ public class UserMainUI extends javax.swing.JFrame {
     private javax.swing.JTable requestedPlanjTable;
     private javax.swing.JPanel subscriptionPlansJPanel;
     private javax.swing.JLabel subscriptionPlansTextjLabel;
+    private javax.swing.JButton updatePasswordjButton;
+    private javax.swing.JPanel userChangeCredentialJPanel;
+    private javax.swing.JLabel userChangeCredentialTextjLabel;
     private javax.swing.JPanel userComplaintsJPanel;
     private javax.swing.JLabel userComplaintsTextjLabel;
     private javax.swing.JButton userLogoutjButton;
     private javax.swing.JPanel userMenujPanel;
+    private javax.swing.JLabel userNameInProfilejLabel;
     public javax.swing.JLabel userNamejLabel;
     // End of variables declaration//GEN-END:variables
 }

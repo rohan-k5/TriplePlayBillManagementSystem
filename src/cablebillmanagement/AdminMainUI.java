@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdminMainUI extends javax.swing.JFrame {
     
-    public int adminID = 100;
+    public int adminID = 101;
     public String adminName = " No Admin Name";
     Connection connection = null;
 
@@ -74,11 +74,13 @@ public class AdminMainUI extends javax.swing.JFrame {
         manageUserJPanel.setBackground(new Color(61,81,85));
         addPlanJPanel.setBackground(new Color(61,81,85));
         adminComplaintsJPanel.setBackground(new Color(61,81,85));
+        adminChangeCredentialJPanel.setBackground(new Color(61,81,85));
 //        changing font colr
         pendingRequestTextjLabel.setForeground(new Color(255,255,255));
         manageUserTextjLabel.setForeground(new Color(255,255,255));
         addPlanTextjLabel.setForeground(new Color(255,255,255));
         adminComplaintsTextjLabel.setForeground(new Color(255,255,255));
+        adminChangeCredentialTextjLabel.setForeground(new Color(255,255,255));
     }
     
 //    changing menu color to make highlight clicked button
@@ -94,6 +96,8 @@ public class AdminMainUI extends javax.swing.JFrame {
         ManageUserUIjPanel.setVisible(false);
         AddPlanesUIjPanel.setVisible(false);
         ComplaintsUItempjPanel.setVisible(false);
+        AdminChangeCredentialjPanel.setVisible(false);
+        
         tempjPanel.setVisible(false);
         
         myPane.setVisible(true);
@@ -354,7 +358,38 @@ private void updatePendingComplaintsInTable(int complaintID){
         }
 }  
   
-  
+//  *******************************Profile ***************************
+private void updateAdminPassword(String password ){
+    String url = "UPDATE ADMIN SET Ad_pass = '"+password+"' WHERE Ad_id = "+this.adminID+";";
+    System.out.println("Admin id " + url);
+    try{
+            connection = ConnectionManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(url);
+            
+            int choice = JOptionPane.showConfirmDialog(this, "Do You Want To Change Password ?"," Confirmation", JOptionPane.YES_NO_OPTION );
+//            ) means YES
+            if ( choice == 0){
+            System.out.println("Choice: " + choice);
+            
+                int i = ps.executeUpdate();
+                System.out.println(" i = " + i);
+                if( i> 0){
+                    int loginAgain = JOptionPane.showConfirmDialog(this, "Do You Want To Login Again ?"," Confirmation", JOptionPane.YES_NO_OPTION );
+                    if( loginAgain ==0 ){
+//                        Opening Login lage
+                        new LoginFrame().setVisible(true);
+//                        closing Current page
+                        this.dispose();
+                    }
+                 }
+            }
+        }
+//    
+        catch( SQLException ex){
+            System.out.println("Error in cablebillmanagement.AdminMainUI.updateAdminPassword() : " + ex.getMessage());
+        }
+    
+}
   
   
     /**
@@ -382,6 +417,9 @@ private void updatePendingComplaintsInTable(int complaintID){
         adminComplaintsJPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         adminComplaintsTextjLabel = new javax.swing.JLabel();
+        adminChangeCredentialJPanel = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        adminChangeCredentialTextjLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -389,6 +427,18 @@ private void updatePendingComplaintsInTable(int complaintID){
         jPanel9 = new javax.swing.JPanel();
         headingOfPagejLabel = new javax.swing.JLabel();
         RightBottomContentjPanel = new javax.swing.JPanel();
+        AdminChangeCredentialjPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        adminNameInProfilejLabel = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        adminProfilejLabel = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        newAdminjPasswordField = new javax.swing.JPasswordField();
+        confirmAdminjPasswordField = new javax.swing.JPasswordField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        updatePasswordjButton = new javax.swing.JButton();
         ComplaintsUItempjPanel = new javax.swing.JPanel();
         billListContainerjPanel1 = new javax.swing.JPanel();
         billListjLabel1 = new javax.swing.JLabel();
@@ -553,6 +603,27 @@ private void updatePendingComplaintsInTable(int complaintID){
 
         jPanel4.add(adminComplaintsJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 200, 40));
 
+        adminChangeCredentialJPanel.setBackground(new java.awt.Color(61, 81, 85));
+        adminChangeCredentialJPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(125, 159, 154)));
+        adminChangeCredentialJPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                adminChangeCredentialJPanelMouseClicked(evt);
+            }
+        });
+        adminChangeCredentialJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_registration_24px_3.png"))); // NOI18N
+        adminChangeCredentialJPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 30, 40));
+
+        adminChangeCredentialTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
+        adminChangeCredentialTextjLabel.setForeground(new java.awt.Color(255, 255, 255));
+        adminChangeCredentialTextjLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        adminChangeCredentialTextjLabel.setText("Chance Credential");
+        adminChangeCredentialJPanel.add(adminChangeCredentialTextjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 120, 20));
+
+        jPanel4.add(adminChangeCredentialJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 200, 40));
+
         getContentPane().add(jPanel4, java.awt.BorderLayout.LINE_START);
 
         jPanel5.setLayout(new java.awt.BorderLayout());
@@ -596,6 +667,114 @@ private void updatePendingComplaintsInTable(int complaintID){
         RightBottomContentjPanel.setBackground(new java.awt.Color(125, 159, 154));
         RightBottomContentjPanel.setPreferredSize(new java.awt.Dimension(900, 496));
         RightBottomContentjPanel.setLayout(new javax.swing.OverlayLayout(RightBottomContentjPanel));
+
+        AdminChangeCredentialjPanel.setBackground(new java.awt.Color(125, 159, 154));
+        AdminChangeCredentialjPanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel2.setBackground(new java.awt.Color(125, 159, 154));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel14.setText("Confirm Password");
+
+        adminNameInProfilejLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        adminNameInProfilejLabel.setForeground(new java.awt.Color(51, 0, 51));
+        adminNameInProfilejLabel.setText("Admin Name 1111");
+
+        adminProfilejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        adminProfilejLabel.setForeground(new java.awt.Color(51, 0, 51));
+        adminProfilejLabel.setText("Admin Name");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel16.setText("New Password");
+
+        confirmAdminjPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                confirmAdminjPasswordFieldFocusLost(evt);
+            }
+        });
+        confirmAdminjPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                confirmAdminjPasswordFieldMouseExited(evt);
+            }
+        });
+
+        updatePasswordjButton.setBackground(new java.awt.Color(94, 185, 228));
+        updatePasswordjButton.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
+        updatePasswordjButton.setText("Update Password");
+        updatePasswordjButton.setBorder(null);
+        updatePasswordjButton.setFocusable(false);
+        updatePasswordjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatePasswordjButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(newAdminjPasswordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmAdminjPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(jSeparator9))
+                        .addGap(231, 231, 231))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(adminProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adminNameInProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updatePasswordjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(adminProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(adminNameInProfilejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(confirmAdminjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(newAdminjPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36)
+                .addComponent(updatePasswordjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
+        );
+
+        AdminChangeCredentialjPanel.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        RightBottomContentjPanel.add(AdminChangeCredentialjPanel);
 
         ComplaintsUItempjPanel.setBackground(new java.awt.Color(125, 159, 154));
         ComplaintsUItempjPanel.setLayout(new java.awt.GridLayout(2, 1));
@@ -1353,6 +1532,34 @@ private void updatePendingComplaintsInTable(int complaintID){
         }
     }//GEN-LAST:event_pendingComplaitsjTableMouseClicked
 
+    private void adminChangeCredentialJPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminChangeCredentialJPanelMouseClicked
+        // TODO add your handling code here:
+        changeTOBtnDefaultColor();
+        highlightClicked(adminChangeCredentialJPanel, adminChangeCredentialTextjLabel);
+        
+        adminNameInProfilejLabel.setText(adminName);
+        showThisPane(AdminChangeCredentialjPanel);
+    }//GEN-LAST:event_adminChangeCredentialJPanelMouseClicked
+
+    private void updatePasswordjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePasswordjButtonActionPerformed
+        // TODO add your handling code here:
+        int valid = SignupFrame.validatePassword(newAdminjPasswordField, confirmAdminjPasswordField);
+        if( valid ==1){
+            String password = String.valueOf(newAdminjPasswordField.getPassword());
+            updateAdminPassword(password);
+        }
+    }//GEN-LAST:event_updatePasswordjButtonActionPerformed
+
+    private void confirmAdminjPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmAdminjPasswordFieldFocusLost
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_confirmAdminjPasswordFieldFocusLost
+
+    private void confirmAdminjPasswordFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmAdminjPasswordFieldMouseExited
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_confirmAdminjPasswordFieldMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -1398,6 +1605,7 @@ private void updatePendingComplaintsInTable(int complaintID){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AddPlanContainerjPanel;
     private javax.swing.JPanel AddPlanesUIjPanel;
+    private javax.swing.JPanel AdminChangeCredentialjPanel;
     private javax.swing.JPanel ComplaintsUItempjPanel;
     private javax.swing.JPanel ManageUserUIjPanel;
     private javax.swing.JPanel PendingRequestUIjPanel;
@@ -1408,10 +1616,14 @@ private void updatePendingComplaintsInTable(int complaintID){
     private javax.swing.JPanel addPlanJPanel;
     private javax.swing.JLabel addPlanTextjLabel;
     private javax.swing.JButton addPlanjButton;
+    private javax.swing.JPanel adminChangeCredentialJPanel;
+    private javax.swing.JLabel adminChangeCredentialTextjLabel;
     private javax.swing.JPanel adminComplaintsJPanel;
     private javax.swing.JLabel adminComplaintsTextjLabel;
     private javax.swing.JButton adminLogoutjButton;
+    private javax.swing.JLabel adminNameInProfilejLabel;
     public javax.swing.JLabel adminNamejLabel;
+    private javax.swing.JLabel adminProfilejLabel;
     private javax.swing.JButton allComplaintsRefreshjButton;
     private javax.swing.JLabel allComplaintsjLabel;
     private javax.swing.JScrollPane allComplaintsjScrollPane;
@@ -1423,11 +1635,14 @@ private void updatePendingComplaintsInTable(int complaintID){
     private javax.swing.JScrollPane billListjScrollPane;
     private javax.swing.JTable billListjTable;
     private javax.swing.JButton billListrefreshjButton;
+    private javax.swing.JPasswordField confirmAdminjPasswordField;
     private javax.swing.JLabel headingOfPagejLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1435,6 +1650,7 @@ private void updatePendingComplaintsInTable(int complaintID){
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1442,6 +1658,7 @@ private void updatePendingComplaintsInTable(int complaintID){
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1450,14 +1667,18 @@ private void updatePendingComplaintsInTable(int complaintID){
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPanel manageUserJPanel;
     private javax.swing.JLabel manageUserTextjLabel;
+    private javax.swing.JPasswordField newAdminjPasswordField;
     private javax.swing.JButton pendingComplaintsRefreshjButton1;
     private javax.swing.JScrollPane pendingComplaitsjScrollPane;
     private javax.swing.JTable pendingComplaitsjTable;
@@ -1473,6 +1694,7 @@ private void updatePendingComplaintsInTable(int complaintID){
     private javax.swing.JTable requestShowjTable;
     private javax.swing.JScrollPane requestShowjTableScrollPane;
     private javax.swing.JPanel tempjPanel;
+    private javax.swing.JButton updatePasswordjButton;
     private javax.swing.JButton userListRefreshjButton;
     private javax.swing.JLabel userListjLabel;
     private javax.swing.JScrollPane userListjScrollPane;
