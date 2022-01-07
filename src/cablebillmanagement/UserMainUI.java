@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package triplaeplaybillmanagement;
+package cablebillmanagement;
 
-import static triplaeplaybillmanagement.SignupFrame.checkFieldValidity;
+import static cablebillmanagement.SignupFrame.checkFieldValidity;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.sql.Statement;
@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ public class UserMainUI extends javax.swing.JFrame {
      Connection connection = null;
      public int userID=800 ;
      public String userName =" No User Name";
+     private int OTP ;
 
      public UserMainUI() {
         initComponents();
@@ -100,6 +102,12 @@ public class UserMainUI extends javax.swing.JFrame {
         myPane.setVisible(true);
     }
     
+private static int generateOTP(int min, int max){
+      
+        Random rand = new Random();
+        int otp = rand.nextInt(max-min) + min;
+        return otp;
+    }
 //    ***************************Pending Paymets***************
  private void displayDataToPendingBillTable(int uID, JTable myTable){
       
@@ -472,6 +480,20 @@ private void updateUserPassword(String password ){
         jPanel11 = new javax.swing.JPanel();
         userLogoutjButton = new javax.swing.JButton();
         RightBottomContentUserjPanel = new javax.swing.JPanel();
+        PendingPaymentUIjPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        pendingPaymentjScrollPane = new javax.swing.JScrollPane();
+        pendingPaymentjTable = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        BillingHistoryUIjPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        billingHistoryjScrollPane = new javax.swing.JScrollPane();
+        billHistoryjTable = new javax.swing.JTable();
+        billHistoryRefreshjButton = new javax.swing.JButton();
         UserComplaintsUIjPanel = new javax.swing.JPanel();
         AddPlanComplaintjPanel = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -533,20 +555,6 @@ private void updateUserPassword(String password ){
         jSeparator9 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
         updatePasswordjButton = new javax.swing.JButton();
-        PendingPaymentUIjPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        pendingPaymentjScrollPane = new javax.swing.JScrollPane();
-        pendingPaymentjTable = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        BillingHistoryUIjPanel = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
-        billingHistoryjScrollPane = new javax.swing.JScrollPane();
-        billHistoryjTable = new javax.swing.JTable();
-        billHistoryRefreshjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Triple Play Bill Management - User");
@@ -555,7 +563,7 @@ private void updateUserPassword(String password ){
         userMenujPanel.setPreferredSize(new java.awt.Dimension(200, 583));
         userMenujPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_user_100px_1.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_user_100px_1.png"))); // NOI18N
         userMenujPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 100, 90));
         userMenujPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 176, 22));
 
@@ -575,7 +583,7 @@ private void updateUserPassword(String password ){
         subscriptionPlansJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_new_letter_24px.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_new_letter_24px.png"))); // NOI18N
         subscriptionPlansJPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         subscriptionPlansTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -596,7 +604,7 @@ private void updateUserPassword(String password ){
         pendingPaymentJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_payment_history_24px.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_payment_history_24px.png"))); // NOI18N
         pendingPaymentJPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         pendingPaymentTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -617,7 +625,7 @@ private void updateUserPassword(String password ){
         billingHistoryJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_transaction_24px.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_transaction_24px.png"))); // NOI18N
         billingHistoryJPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         billingHistoryTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -638,7 +646,7 @@ private void updateUserPassword(String password ){
         userComplaintsJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_complaint_24px_1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_complaint_24px_1.png"))); // NOI18N
         userComplaintsJPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         userComplaintsTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -659,7 +667,7 @@ private void updateUserPassword(String password ){
         userChangeCredentialJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_registration_24px_3.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_registration_24px_3.png"))); // NOI18N
         userChangeCredentialJPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 30, 40));
 
         userChangeCredentialTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -713,6 +721,176 @@ private void updateUserPassword(String password ){
         RightBottomContentUserjPanel.setBackground(new java.awt.Color(125, 159, 154));
         RightBottomContentUserjPanel.setAlignmentX(0.0F);
         RightBottomContentUserjPanel.setLayout(new javax.swing.OverlayLayout(RightBottomContentUserjPanel));
+
+        PendingPaymentUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
+        PendingPaymentUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel1.setBackground(new java.awt.Color(125, 159, 154));
+
+        jLabel3.setFont(new java.awt.Font("Palatino Linotype", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(222, 210, 181));
+        jLabel3.setText("Pending Bills To be Paid");
+
+        pendingPaymentjScrollPane.setBackground(new java.awt.Color(125, 159, 154));
+        pendingPaymentjScrollPane.setBorder(null);
+
+        pendingPaymentjTable.setAutoCreateRowSorter(true);
+        pendingPaymentjTable.setBackground(new java.awt.Color(226, 220, 220));
+        pendingPaymentjTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pendingPaymentjTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null,null, null},
+                {null, null, null,null, null},
+                {null, null, null,null, null},
+                {null, null, null,null, null}
+            },
+            new String [] {
+                " Bill ID", " Plan Name","Isuue Date","Due Date", "Pay Now/Later"
+            }
+        ));
+        pendingPaymentjTable.setRowHeight(32);
+        pendingPaymentjTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        pendingPaymentjTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        pendingPaymentjTable.setShowHorizontalLines(false);
+        pendingPaymentjTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pendingPaymentjTableMouseClicked(evt);
+            }
+        });
+        pendingPaymentjScrollPane.setViewportView(pendingPaymentjTable);
+
+        jButton2.setBackground(new java.awt.Color(51, 204, 255));
+        jButton2.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
+        jButton2.setText("Refresh");
+        jButton2.setBorder(null);
+        jButton2.setFocusable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pendingPaymentjScrollPane)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 445, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(pendingPaymentjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+
+        PendingPaymentUIjPanel.add(jPanel1);
+
+        RightBottomContentUserjPanel.add(PendingPaymentUIjPanel);
+
+        BillingHistoryUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
+        BillingHistoryUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel2.setBackground(new java.awt.Color(125, 159, 154));
+
+        jLabel5.setFont(new java.awt.Font("Palatino Linotype", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(222, 210, 181));
+        jLabel5.setText(" Bills History");
+
+        billingHistoryjScrollPane.setBackground(new java.awt.Color(125, 159, 154));
+        billingHistoryjScrollPane.setBorder(null);
+
+        billHistoryjTable.setAutoCreateRowSorter(true);
+        billHistoryjTable.setBackground(new java.awt.Color(226, 220, 220));
+        billHistoryjTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        billHistoryjTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null,null, null, null},
+                {null, null, null,null, null, null},
+                {null, null, null,null, null, null},
+                {null, null, null,null, null, null}
+            },
+            new String [] {
+                " Bill ID", " Plan Name","Isuue Date","Due Date"," Bill Status", "More Info"
+            }
+        ));
+        billHistoryjTable.setRowHeight(32);
+        billHistoryjTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        billHistoryjTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        billHistoryjTable.setShowHorizontalLines(false);
+        billHistoryjTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                billHistoryjTableMouseClicked(evt);
+            }
+        });
+        billingHistoryjScrollPane.setViewportView(billHistoryjTable);
+
+        billHistoryRefreshjButton.setBackground(new java.awt.Color(51, 204, 255));
+        billHistoryRefreshjButton.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
+        billHistoryRefreshjButton.setText("Refresh");
+        billHistoryRefreshjButton.setBorder(null);
+        billHistoryRefreshjButton.setFocusable(false);
+        billHistoryRefreshjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billHistoryRefreshjButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(billingHistoryjScrollPane)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 445, Short.MAX_VALUE)
+                        .addComponent(billHistoryRefreshjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(billHistoryRefreshjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(billingHistoryjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+
+        BillingHistoryUIjPanel.add(jPanel2);
+
+        RightBottomContentUserjPanel.add(BillingHistoryUIjPanel);
 
         UserComplaintsUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
         UserComplaintsUIjPanel.setLayout(new java.awt.GridLayout(2, 1));
@@ -1218,176 +1396,6 @@ private void updateUserPassword(String password ){
 
         RightBottomContentUserjPanel.add(UserChangeCredentialUIjPanel);
 
-        PendingPaymentUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
-        PendingPaymentUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        jPanel1.setBackground(new java.awt.Color(125, 159, 154));
-
-        jLabel3.setFont(new java.awt.Font("Palatino Linotype", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(222, 210, 181));
-        jLabel3.setText("Pending Bills To be Paid");
-
-        pendingPaymentjScrollPane.setBackground(new java.awt.Color(125, 159, 154));
-        pendingPaymentjScrollPane.setBorder(null);
-
-        pendingPaymentjTable.setAutoCreateRowSorter(true);
-        pendingPaymentjTable.setBackground(new java.awt.Color(226, 220, 220));
-        pendingPaymentjTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pendingPaymentjTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null,null, null},
-                {null, null, null,null, null},
-                {null, null, null,null, null},
-                {null, null, null,null, null}
-            },
-            new String [] {
-                " Bill ID", " Plan Name","Isuue Date","Due Date", "Pay Now/Later"
-            }
-        ));
-        pendingPaymentjTable.setRowHeight(32);
-        pendingPaymentjTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
-        pendingPaymentjTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        pendingPaymentjTable.setShowHorizontalLines(false);
-        pendingPaymentjTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pendingPaymentjTableMouseClicked(evt);
-            }
-        });
-        pendingPaymentjScrollPane.setViewportView(pendingPaymentjTable);
-
-        jButton2.setBackground(new java.awt.Color(51, 204, 255));
-        jButton2.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
-        jButton2.setText("Refresh");
-        jButton2.setBorder(null);
-        jButton2.setFocusable(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pendingPaymentjScrollPane)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 445, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(pendingPaymentjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
-        );
-
-        PendingPaymentUIjPanel.add(jPanel1);
-
-        RightBottomContentUserjPanel.add(PendingPaymentUIjPanel);
-
-        BillingHistoryUIjPanel.setBackground(new java.awt.Color(255, 153, 153));
-        BillingHistoryUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        jPanel2.setBackground(new java.awt.Color(125, 159, 154));
-
-        jLabel5.setFont(new java.awt.Font("Palatino Linotype", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(222, 210, 181));
-        jLabel5.setText(" Bills History");
-
-        billingHistoryjScrollPane.setBackground(new java.awt.Color(125, 159, 154));
-        billingHistoryjScrollPane.setBorder(null);
-
-        billHistoryjTable.setAutoCreateRowSorter(true);
-        billHistoryjTable.setBackground(new java.awt.Color(226, 220, 220));
-        billHistoryjTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        billHistoryjTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null,null, null, null},
-                {null, null, null,null, null, null},
-                {null, null, null,null, null, null},
-                {null, null, null,null, null, null}
-            },
-            new String [] {
-                " Bill ID", " Plan Name","Isuue Date","Due Date"," Bill Status", "More Info"
-            }
-        ));
-        billHistoryjTable.setRowHeight(32);
-        billHistoryjTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
-        billHistoryjTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        billHistoryjTable.setShowHorizontalLines(false);
-        billHistoryjTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                billHistoryjTableMouseClicked(evt);
-            }
-        });
-        billingHistoryjScrollPane.setViewportView(billHistoryjTable);
-
-        billHistoryRefreshjButton.setBackground(new java.awt.Color(51, 204, 255));
-        billHistoryRefreshjButton.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
-        billHistoryRefreshjButton.setText("Refresh");
-        billHistoryRefreshjButton.setBorder(null);
-        billHistoryRefreshjButton.setFocusable(false);
-        billHistoryRefreshjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billHistoryRefreshjButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(billingHistoryjScrollPane)
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 445, Short.MAX_VALUE)
-                        .addComponent(billHistoryRefreshjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(billHistoryRefreshjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(billingHistoryjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
-        );
-
-        BillingHistoryUIjPanel.add(jPanel2);
-
-        RightBottomContentUserjPanel.add(BillingHistoryUIjPanel);
-
         jPanel5.add(RightBottomContentUserjPanel, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.CENTER);
@@ -1446,17 +1454,51 @@ private void updateUserPassword(String password ){
 
     private void pendingPaymentjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pendingPaymentjTableMouseClicked
         // TODO add your handling code here:
+        int userEnteredOTP;
         int choice = JOptionPane.showConfirmDialog(this, "Pay This Bill ?"," Confirmation", JOptionPane.YES_NO_OPTION );
         System.out.println(" Selected " + choice);
         
 //        choice 0 means YES.
         if( choice == 0){
-//            To get selected row So we can get Request ID
+            int choiceOtp = JOptionPane.showConfirmDialog(this, "Send OTP through SMS ?"," Confirmation", JOptionPane.YES_NO_OPTION );
+            System.out.println(" Selected " + choiceOtp);
+            
+            if( choiceOtp == 0){
+//                generating OTP 
+                int generatedOTP = generateOTP(1000, 9999);
+//                sending OTP to mobile.
+                MobileUIotp mobile = new MobileUIotp(generatedOTP);
+                mobile.setVisible(true);
+                
+//               Getting OTP from user.
+               try{
+                    userEnteredOTP =Integer.parseInt( JOptionPane.showInputDialog("Enter OTP to Proceed. "));
+                    System.out.println(" OTP : " + userEnteredOTP);
+                    
+//              Verifying User through OTP.
+                    if( userEnteredOTP == generatedOTP){
+                    JOptionPane.showMessageDialog(this, " You are verfied through OTP.");
+                    mobile.dispose();
+                          
+//               To get selected row So we can get Request ID
               int rowIndex = pendingPaymentjTable.getSelectedRow();
               int billID =Integer.parseInt( pendingPaymentjTable.getModel().getValueAt(rowIndex, 0).toString() );
               
              updatePendingBillTable(billID);
-             
+                  }
+                  else{
+                      JOptionPane.showMessageDialog(this, " OTP verification Failed!");
+                 }
+               }
+               catch (Exception ex){
+                    System.out.println("Error: cablebillmanagement.UserMainUI.pendingPaymentjTableMouseClicked(): " + ex.getMessage());
+               }
+
+            }
+            
+            
+    
+//             
         }
         
     }//GEN-LAST:event_pendingPaymentjTableMouseClicked

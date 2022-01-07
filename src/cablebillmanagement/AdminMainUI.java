@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package triplaeplaybillmanagement;
+package cablebillmanagement;
 
-import static triplaeplaybillmanagement.SignupFrame.checkFieldValidity;
+import static cablebillmanagement.SignupFrame.checkFieldValidity;
 import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import java.awt.Color;
 import java.awt.Font;
@@ -428,6 +428,13 @@ private void updateAdminPassword(String password ){
         jPanel9 = new javax.swing.JPanel();
         headingOfPagejLabel = new javax.swing.JLabel();
         RightBottomContentjPanel = new javax.swing.JPanel();
+        PendingRequestUIjPanel = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        requestShowjTableScrollPane = new javax.swing.JScrollPane();
+        requestShowjTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         AdminChangeCredentialjPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
@@ -476,13 +483,6 @@ private void updateAdminPassword(String password ){
         jSeparator2 = new javax.swing.JSeparator();
         planTablejScrollPane = new javax.swing.JScrollPane();
         planjShowjTable = new javax.swing.JTable();
-        PendingRequestUIjPanel = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
-        requestShowjTableScrollPane = new javax.swing.JScrollPane();
-        requestShowjTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         ManageUserUIjPanel = new javax.swing.JPanel();
         billListContainerjPanel = new javax.swing.JPanel();
         billListjLabel = new javax.swing.JLabel();
@@ -507,7 +507,7 @@ private void updateAdminPassword(String password ){
         jPanel4.setPreferredSize(new java.awt.Dimension(200, 583));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_administrator_male_100px_2.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_administrator_male_100px_2.png"))); // NOI18N
         jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 100, 90));
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 176, 22));
 
@@ -527,7 +527,7 @@ private void updateAdminPassword(String password ){
         pendingRequestJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_data_pending_24px.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_data_pending_24px.png"))); // NOI18N
         pendingRequestJPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 30, 40));
 
         pendingRequestTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -548,7 +548,7 @@ private void updateAdminPassword(String password ){
         manageUserJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_admin_settings_male_24px.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_admin_settings_male_24px.png"))); // NOI18N
         manageUserJPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         manageUserTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -572,7 +572,7 @@ private void updateAdminPassword(String password ){
         addPlanJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_new_ticket_25px.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_new_ticket_25px.png"))); // NOI18N
         addPlanJPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         addPlanTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -593,7 +593,7 @@ private void updateAdminPassword(String password ){
         adminComplaintsJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_complaint_24px_1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_complaint_24px_1.png"))); // NOI18N
         adminComplaintsJPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         adminComplaintsTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -614,7 +614,7 @@ private void updateAdminPassword(String password ){
         adminChangeCredentialJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/triplaeplaybillmanagement/assets/icons8_registration_24px_3.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/icons8_registration_24px_3.png"))); // NOI18N
         adminChangeCredentialJPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 30, 40));
 
         adminChangeCredentialTextjLabel.setFont(new java.awt.Font("Goudy Old Style", 1, 15)); // NOI18N
@@ -668,6 +668,93 @@ private void updateAdminPassword(String password ){
         RightBottomContentjPanel.setBackground(new java.awt.Color(125, 159, 154));
         RightBottomContentjPanel.setPreferredSize(new java.awt.Dimension(900, 496));
         RightBottomContentjPanel.setLayout(new javax.swing.OverlayLayout(RightBottomContentjPanel));
+
+        PendingRequestUIjPanel.setBackground(new java.awt.Color(153, 153, 255));
+        PendingRequestUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
+
+        jPanel15.setBackground(new java.awt.Color(125, 159, 154));
+
+        jLabel7.setFont(new java.awt.Font("Palatino Linotype", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(222, 210, 181));
+        jLabel7.setText("Requests from users");
+
+        requestShowjTableScrollPane.setBackground(new java.awt.Color(125, 159, 154));
+        requestShowjTableScrollPane.setBorder(null);
+        requestShowjTableScrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                requestShowjTableScrollPaneMouseClicked(evt);
+            }
+        });
+
+        requestShowjTable.setAutoCreateRowSorter(true);
+        requestShowjTable.setBackground(new java.awt.Color(226, 220, 220));
+        requestShowjTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        requestShowjTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null,null, null},
+                {null, null, null,null, null},
+                {null, null, null,null, null},
+                {null, null, null,null, null}
+            },
+            new String [] {
+                " Request ID", " User","Email ID", " Plan Name", "Grant/Reject"
+            }
+        ));
+        requestShowjTable.setRowHeight(32);
+        requestShowjTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        requestShowjTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        requestShowjTable.setShowHorizontalLines(false);
+        requestShowjTable.getTableHeader().setReorderingAllowed(false);
+        requestShowjTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                requestShowjTableMouseClicked(evt);
+            }
+        });
+        requestShowjTableScrollPane.setViewportView(requestShowjTable);
+
+        jButton1.setBackground(new java.awt.Color(51, 204, 255));
+        jButton1.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
+        jButton1.setText("Refresh");
+        jButton1.setBorder(null);
+        jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(requestShowjTableScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(408, Short.MAX_VALUE))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(requestShowjTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        PendingRequestUIjPanel.add(jPanel15);
+
+        RightBottomContentjPanel.add(PendingRequestUIjPanel);
 
         AdminChangeCredentialjPanel.setBackground(new java.awt.Color(125, 159, 154));
         AdminChangeCredentialjPanel.setLayout(new java.awt.BorderLayout());
@@ -1108,93 +1195,6 @@ private void updateAdminPassword(String password ){
         AddPlanesUIjPanel.add(plansShowjPanel);
 
         RightBottomContentjPanel.add(AddPlanesUIjPanel);
-
-        PendingRequestUIjPanel.setBackground(new java.awt.Color(153, 153, 255));
-        PendingRequestUIjPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        jPanel15.setBackground(new java.awt.Color(125, 159, 154));
-
-        jLabel7.setFont(new java.awt.Font("Palatino Linotype", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(222, 210, 181));
-        jLabel7.setText("Requests from users");
-
-        requestShowjTableScrollPane.setBackground(new java.awt.Color(125, 159, 154));
-        requestShowjTableScrollPane.setBorder(null);
-        requestShowjTableScrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                requestShowjTableScrollPaneMouseClicked(evt);
-            }
-        });
-
-        requestShowjTable.setAutoCreateRowSorter(true);
-        requestShowjTable.setBackground(new java.awt.Color(226, 220, 220));
-        requestShowjTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        requestShowjTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null,null, null},
-                {null, null, null,null, null},
-                {null, null, null,null, null},
-                {null, null, null,null, null}
-            },
-            new String [] {
-                " Request ID", " User","Email ID", " Plan Name", "Grant/Reject"
-            }
-        ));
-        requestShowjTable.setRowHeight(32);
-        requestShowjTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
-        requestShowjTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        requestShowjTable.setShowHorizontalLines(false);
-        requestShowjTable.getTableHeader().setReorderingAllowed(false);
-        requestShowjTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                requestShowjTableMouseClicked(evt);
-            }
-        });
-        requestShowjTableScrollPane.setViewportView(requestShowjTable);
-
-        jButton1.setBackground(new java.awt.Color(51, 204, 255));
-        jButton1.setFont(new java.awt.Font("Goudy Old Style", 1, 18)); // NOI18N
-        jButton1.setText("Refresh");
-        jButton1.setBorder(null);
-        jButton1.setFocusable(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(requestShowjTableScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(408, Short.MAX_VALUE))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(requestShowjTableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        PendingRequestUIjPanel.add(jPanel15);
-
-        RightBottomContentjPanel.add(PendingRequestUIjPanel);
 
         ManageUserUIjPanel.setBackground(new java.awt.Color(125, 159, 154));
         ManageUserUIjPanel.setLayout(new java.awt.GridLayout(2, 1));
