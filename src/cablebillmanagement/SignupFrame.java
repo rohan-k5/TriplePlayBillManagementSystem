@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package cablebillmanagement;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.regex.Pattern;
@@ -23,7 +24,11 @@ public class SignupFrame extends javax.swing.JFrame {
     
     public SignupFrame() {
         initComponents();
+        setIconImage();
         this.setLocationRelativeTo(null);
+    }
+private void setIconImage(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icons8_laptop_24px.png"))); 
     }
 
     enum CheckFlied{
@@ -31,6 +36,7 @@ public class SignupFrame extends javax.swing.JFrame {
         PHONE,
         EMAIL,
         NAME,
+        DATE,
         ADDRESS;
     }
     
@@ -90,6 +96,17 @@ public static int checkFieldValidity(String text , CheckFlied field){
 //    Checking for valid Address
     if(field == CheckFlied.ADDRESS){
       String pattern = "(?=.*[A-Za-z]{3,})[A-Za-z0-9\\.-:\\s]{4,}";
+
+      // Create a Pattern object
+      Pattern r = Pattern.compile(pattern);
+      
+      if(r.matcher(text).matches()){
+          return 1;
+      }
+      }
+//    Date validate
+    if(field == CheckFlied.DATE){
+      String pattern = "^(20[0-9]{2})\\-(0[1-9]|1[0-2])\\-(0[1-9]|[1-2][0-9]|3[0-1])";
 
       // Create a Pattern object
       Pattern r = Pattern.compile(pattern);
