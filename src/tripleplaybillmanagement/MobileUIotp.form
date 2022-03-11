@@ -103,7 +103,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/cablebillmanagement/assets/icons8_home_button_30px.png"/>
+                      <Image iconType="3" name="/tripleplaybillmanagement/assets/icons8_home_button_30px.png"/>
                     </Property>
                   </Properties>
                 </Component>

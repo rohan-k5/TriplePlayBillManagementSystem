@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package cablebillmanagement;
+package tripleplaybillmanagement;
 
-import static cablebillmanagement.SignupFrame.checkFieldValidity;
+import static tripleplaybillmanagement.SignupFrame.checkFieldValidity;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -141,7 +141,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(255, 255, 255)));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cablebillmanagement/assets/frontPageTriplePlayImage430.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tripleplaybillmanagement/assets/frontPageTriplePlayImage430.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 450, 420));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 470, 520));
@@ -181,6 +181,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(51, 255, 153));
         jButton1.setText("Sign Up");
         jButton1.setBorderPainted(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -238,6 +239,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(51, 204, 255));
         jButton2.setText("Login");
         jButton2.setBorderPainted(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
