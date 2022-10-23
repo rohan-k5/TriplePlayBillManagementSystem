@@ -4,12 +4,12 @@ This project aimed at developing Triple Play service Bill Management. Triple pla
   
 ## Tool Used
  > #### Front End
-   - ###### 	NetBeans IDE 12.6 
-   - ###### Java Development Kit 8 
-   - ######	MySQL connector for NetBeans 
+   - ###### 	[<img src="https://img.shields.io/badge/%20-NetBeans IDE 12.6-lightgreen"/>](https://netbeans.apache.org/)
+   - ###### [<img src="https://img.shields.io/badge/%20-Java Development Kit 8 -red"/>](https://www.oracle.com/in/java/technologies/javase/javase8-archive-downloads.html)
+   - ######	[<img src="https://img.shields.io/badge/%20-MySQL connector for NetBeans-orange"/>](https://netbeans.apache.org/kb/docs/ide/mysql.html#:~:text=To%20connect%20to%20the%20database,to%20connect%20to%20the%20server.)
 > #### Back End
-   - ######	MySQL Server 8.0.
-   - ######	MYSQL workbench 8.0 CE.
+   - ######	[<img src="https://img.shields.io/badge/%20-MySQL Server 8.0. -blue"/>](https://dev.mysql.com/downloads/mysql/)
+   - ######	[<img src="https://img.shields.io/badge/%20-MYSQL workbench 8.0 CE. -lightblue"/>](https://dev.mysql.com/downloads/workbench/)
 
 ## Schema Diagram
 ![image](https://user-images.githubusercontent.com/72183261/157947431-c3c065fa-3c5d-4246-87bf-5beb0c247865.png)
